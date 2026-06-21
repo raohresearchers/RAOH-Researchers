@@ -1,0 +1,889 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAOH Researchers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --primary: #27D796;
+  --bg: #062F24;
+  --card: #0a3a2e;
+  --card2: #0d4a3a;
+  --border: rgba(39,215,150,0.15);
+  --text: #ffffff;
+  --muted: #a0b5aa;
+  --muted2: #7a9a88;
+  --font: 'Manrope', sans-serif;
+}
+html { scroll-behavior: auto; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+ul { list-style: none; }
+
+/* ===== NAVBAR ===== */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(6,47,36,0.9); border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); }
+.nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-weight: 700; font-size: 1.25rem; letter-spacing: -0.02em; cursor: pointer; }
+.nav-links { display: flex; gap: 24px; }
+.nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--muted); }
+.nav-links a:hover { color: var(--text); }
+.nav-toggle { display: none; }
+.mobile-menu { display: none; }
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; }
+  .mobile-menu { display: block; border-top: 1px solid var(--border); background: rgba(6,47,36,0.95); }
+  .mobile-menu.hidden { display: none; }
+  .mobile-menu a { display: block; padding: 12px 24px; font-size: 1rem; font-weight: 500; color: var(--muted); }
+  .mobile-menu a:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+}
+
+/* ===== HERO ===== */
+.hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 80px 24px 48px; position: relative; }
+.hero::before { content:''; position: absolute; inset: 0; background: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC42NSIgbnVtT2N0YXZlcz0iMyIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNuKSIgb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg=="); opacity: 0.2; mix-blend-mode: overlay; pointer-events: none; }
+.hero-content { position: relative; z-index: 2; max-width: 900px; }
+.hero h1 { font-size: clamp(3rem, 8vw, 6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; }
+.hero h1 span { color: var(--primary); }
+.hero p { font-size: clamp(1.1rem, 2.5vw, 1.5rem); color: var(--muted); max-width: 600px; margin: 24px auto 0; font-weight: 300; }
+.hero-btns { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 48px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; font-size: 1.1rem; font-weight: 600; border-radius: 999px; transition: none; }
+.btn-primary { background: var(--primary); color: #062F24; box-shadow: 0 0 40px -10px rgba(39,215,150,0.4); }
+.btn-outline { border: 1px solid var(--border); background: rgba(10,58,46,0.3); color: var(--text); }
+.btn-ghost { color: var(--muted); }
+.btn-outline:hover, .btn-ghost:hover { background: rgba(255,255,255,0.05); }
+
+/* ===== SECTIONS ===== */
+.section { padding: 96px 24px; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-title { text-align: center; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800; margin-bottom: 48px; }
+
+/* About */
+.about-text { text-align: center; max-width: 800px; margin: 0 auto; font-size: 1.25rem; color: var(--muted); font-weight: 300; }
+.about-text strong { color: var(--text); font-weight: 500; }
+
+/* Team */
+.team-section { padding-top: 40px; padding-bottom: 72px; }
+.team-note { text-align: center; color: var(--muted); font-size: 0.95rem; font-weight: 400; }
+.team-note strong { color: var(--text); font-weight: 600; }
+
+/* Resources */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; cursor: pointer; }
+.card-icon { width: 48px; height: 48px; border-radius: 8px; background: rgba(39,215,150,0.1); display: flex; align-items: center; justify-content: center; color: var(--primary); margin-bottom: 16px; }
+.card-icon svg { width: 24px; height: 24px; }
+.card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 8px; }
+.card p { color: var(--muted); font-size: 0.95rem; margin-bottom: 16px; }
+.card-badge { font-size: 0.75rem; font-weight: 600; color: var(--primary); background: rgba(39,215,150,0.1); padding: 4px 12px; border-radius: 999px; display: inline-block; }
+
+/* Modal */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; display: none; }
+.modal-overlay.active { display: block; }
+.modal { position: fixed; inset: 0; z-index: 201; display: none; }
+.modal.active { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px; overflow: hidden; }
+.modal-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  width: min(94vw, 980px);
+  height: min(78dvh, 720px);
+  min-height: 500px;
+  max-height: calc(100dvh - 36px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+@media (min-width: 640px) {
+  .modal { padding: 24px; }
+  .modal-box {
+    width: min(90vw, 1040px);
+    height: min(80dvh, 760px);
+    min-height: 540px;
+    max-height: calc(100dvh - 48px);
+  }
+}
+@media (max-width: 560px) {
+  .modal.active {
+    padding: 12px;
+  }
+
+  .modal-box {
+    width: calc(100vw - 24px);
+    height: 82dvh;
+    min-height: 420px;
+    max-height: calc(100dvh - 24px);
+  }
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.modal-header h3 { font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; gap: 12px; }
+.modal-header .icon-box { width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; color: var(--primary); }
+.modal-header .icon-box svg { width: 22px; height: 22px; }
+.modal-close { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--muted); }
+.modal-close:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+.modal-close svg { width: 20px; height: 20px; }
+.modal-body {
+  padding: 28px 32px;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+body.lock { overflow: hidden; }
+
+.group-box { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
+.group-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; background: rgba(255,255,255,0.04); cursor: pointer; }
+.group-header-title { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 0.95rem; }
+.group-header-title svg { width: 18px; height: 18px; color: var(--muted); }
+.group-header svg.chevron { width: 18px; height: 18px; }
+.group-items { padding: 12px 18px; background: var(--bg); }
+.group-items a { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 6px; font-size: 0.9rem; color: var(--text); }
+.group-items a:hover { background: rgba(255,255,255,0.04); }
+.group-items a::before { content:''; width: 6px; height: 6px; border-radius: 50%; background: var(--primary); flex-shrink: 0; }
+
+.notes-box { border: 1px solid rgba(245,158,11,0.3); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
+.notes-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; background: rgba(245,158,11,0.08); cursor: pointer; }
+.notes-header-title { display: flex; align-items: center; gap: 10px; font-weight: 600; color: #f59e0b; font-size: 0.95rem; }
+.notes-header-title svg { width: 18px; height: 18px; }
+.notes-header svg.chevron { width: 18px; height: 18px; color: #f59e0b; }
+.notes-list { padding: 12px 18px; background: var(--bg); }
+.note-item { border-bottom: 1px solid var(--border); }
+.note-item:last-child { border-bottom: none; }
+.note-toggle { display: flex; align-items: center; gap: 10px; padding: 10px 12px; font-size: 0.9rem; width: 100%; text-align: left; color: var(--text); }
+.note-toggle::before { content:''; width: 6px; height: 6px; border-radius: 50%; background: #f59e0b; flex-shrink: 0; }
+.note-toggle span { flex: 1; }
+.note-toggle svg { width: 16px; height: 16px; color: var(--muted); }
+.note-body { margin: 0 12px 10px; padding: 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem; line-height: 1.6; color: var(--text); }
+
+/* Footer */
+footer { background: var(--card); border-top: 1px solid var(--border); padding: 64px 24px 32px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 48px; margin-bottom: 48px; }
+.footer-brand h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; }
+.footer-brand p { color: var(--muted); font-weight: 300; max-width: 400px; }
+.footer-connect h4 { font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+.footer-social { display: flex; gap: 12px; }
+.footer-social a { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--muted); }
+.footer-social a:hover { background: rgba(39,215,150,0.15); color: var(--primary); }
+.footer-social a svg { width: 20px; height: 20px; }
+.footer-bottom { border-top: 1px solid rgba(39,215,150,0.1); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+.footer-bottom p { color: var(--muted); font-size: 0.875rem; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { color: var(--muted); font-size: 0.875rem; }
+.footer-links a:hover { color: var(--text); }
+
+@media (max-width: 768px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+}
+
+/* Legal Pages */
+.legal-page { display: none; padding: 96px 24px; max-width: 800px; margin: 0 auto; }
+.legal-page.active { display: block; }
+.legal-back { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: 0.875rem; margin-bottom: 40px; cursor: pointer; }
+.legal-back:hover { color: var(--primary); }
+.legal-back svg { width: 16px; height: 16px; }
+.legal-page h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 12px; }
+.legal-date { color: var(--muted); font-size: 0.875rem; margin-bottom: 48px; }
+.legal-date p { max-width: 500px; margin-top: 8px; }
+.legal-section { margin-bottom: 40px; }
+.legal-section h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 12px; color: var(--text); }
+.legal-section p { color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+.legal-section ul { list-style: disc; padding-left: 24px; color: var(--muted); line-height: 1.7; }
+.legal-section ul li { margin-bottom: 6px; }
+.legal-section a { color: var(--primary); text-decoration: underline; }
+.legal-section a:hover { opacity: 0.8; }
+
+/* Hide main when legal page is active */
+body.legal-active #main-content { display: none; }
+body.legal-active nav { position: relative; }
+
+.soon-only { display: none; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo" onclick="goTo('home')">RAOH Researchers</div>
+
+    <div class="nav-links">
+      <a href="#" onclick="goTo('home'); return false;">Home</a>
+      <a href="#" onclick="goTo('about'); return false;">About</a>
+      <a href="#" onclick="goTo('resources'); return false;">Resources</a>
+
+      <!-- Contact Us = Email -->
+      <a href="mailto:raohresearchers@gmail.com">
+        Contact Us
+      </a>
+
+      <!-- Telegram Channel -->
+      <a href="https://t.me/+tojvW3IEzcQ2OTM8" target="_blank" rel="noopener">
+        Join Our Channel
+      </a>
+    </div>
+
+    <button class="nav-toggle" onclick="toggleMobile()" aria-label="Menu">
+      <svg id="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+
+      <svg id="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="mobile-menu hidden" id="mobile-menu">
+    <a href="#" onclick="goTo('home'); toggleMobile(); return false;">Home</a>
+    <a href="#" onclick="goTo('about'); toggleMobile(); return false;">About</a>
+    <a href="#" onclick="goTo('resources'); toggleMobile(); return false;">Resources</a>
+
+    <!-- Contact Us = Email -->
+    <a href="mailto:raohresearchers@gmail.com" onclick="toggleMobile()">
+      Contact Us
+    </a>
+
+    <!-- Telegram Channel -->
+    <a href="https://t.me/+tojvW3IEzcQ2OTM8" target="_blank" rel="noopener" onclick="toggleMobile()">
+      Join Our Channel
+    </a>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div id="main-content">
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <h1>RAOH <span>Researchers</span></h1>
+    <p>A modern platform for learning research, academic skills, and scientific writing.</p>
+    <div class="hero-btns">
+      <button class="btn btn-primary" onclick="goTo('resources')">Start Learning</button>
+      <button class="btn btn-outline" onclick="window.location.href='mailto:raohresearchers@gmail.com'">
+  Contact Us
+</button>
+<button class="btn btn-ghost" onclick="window.open('https://t.me/+tojvW3IEzcQ2OTM8','_blank')">Join Our Channel</button>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-inner">
+    <h2 class="section-title">Empowering the Future</h2>
+    <p class="about-text"><strong>RAOH Researchers</strong> is an educational initiative dedicated to simplifying research learning for students and future academics through organized resources, guides, and scientific content.</p>
+  </div>
+</section>
+
+<!-- RESOURCES / CURRICULUM -->
+<section class="section" id="resources">
+  <div class="section-inner">
+    <h2 class="section-title">Curriculum</h2>
+    <div class="cards-grid" id="cards-grid"></div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="section team-section" id="team">
+  <div class="section-inner">
+    <p class="team-note">Team: <strong>Hashem Al-Odainat</strong> and <strong>Hashem Magableh</strong></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>RAOH Researchers</h3>
+        <p>Empowering future researchers. A quiet, authoritative digital home for serious students who want to learn research the right way.</p>
+      </div>
+      <div class="footer-connect">
+        <h4>Connect</h4>
+        <div class="footer-social">
+ <a href="https://t.me/+tojvW3IEzcQ2OTM8" target="_blank" rel="noopener" aria-label="Telegram">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.015 3.333-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </a>
+        </div>
+          <a href="mailto:raohresearchers@gmail.com" aria-label="Email" style="display:flex; align-items:center; gap:6px;">
+      <!-- Email Icon -->
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 4h16v16H4z"/>
+        <polyline points="22,6 12,13 2,6"/>
+      </svg>
+      raohresearchers@gmail.com
+    </a>
+  </div> 
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 RAOH Researchers. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#" onclick="showLegal('privacy'); return false;">Privacy Policy</a>
+        <a href="#" onclick="showLegal('terms'); return false;">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</div><!-- /main-content -->
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal()"></div>
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3><span class="icon-box" id="modal-icon"></span><span id="modal-title"></span></h3>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<!-- PRIVACY POLICY -->
+<div class="legal-page" id="privacy-page">
+  <div class="nav-inner" style="padding:16px 24px;">
+    <div class="nav-logo" onclick="hideLegal()">RAOH Researchers</div>
+  </div>
+
+  <div style="padding:0 24px; max-width:800px; margin:0 auto;">
+
+    <div class="legal-back" onclick="hideLegal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="19" y1="12" x2="5" y2="12"/>
+        <polyline points="12 19 5 12 12 5"/>
+      </svg>
+      Back to Home
+    </div>
+
+    <h1>Privacy Policy</h1>
+
+    <div class="legal-date">
+    
+      <p>
+        This Privacy Policy defines how RAOH Researchers handles data, transparency, and user trust.
+        The platform is designed to function with minimal data exposure and maximum user autonomy.
+      </p>
+    </div>
+
+    <div class="legal-section">
+      <h2>1. Core Privacy Principle</h2>
+      <p>
+        RAOH Researchers operates on a strict privacy-first model.
+        The platform is designed to function without requiring personal data from users.
+        Your activity remains your own, with no profiling, identification, or monitoring.
+      </p>
+    </div>
+
+    <div class="legal-section">
+      <h2>2. Data Collection Policy</h2>
+      <p>
+        We do not collect, store, or process personal information from users browsing the platform.
+      </p>
+      <p>
+        This includes, but is not limited to:
+        <br><br>
+        • Names or contact information<br>
+        • Email addresses<br>
+        • Device identifiers or IP tracking<br>
+        • Location data<br>
+        • Browsing behavior or usage analytics
+      </p>
+      <p>
+        The platform is structured to remain functional without requiring user identification.
+      </p>
+    </div>
+
+    <div class="legal-section">
+      <h2>3. No Tracking Policy</h2>
+      <p>
+        RAOH Researchers does not use cookies, analytics tools, tracking pixels, or behavioral monitoring systems.
+        No attempt is made to observe, record, or analyze how users interact with the platform.
+      </p>
+      <p>
+        Access is open and unrestricted, without surveillance or user profiling of any kind.
+      </p>
+    </div>
+
+    <div class="legal-section">
+      <h2>4. External Resources</h2>
+      <p>
+        The platform may include links to external academic and educational resources such as research databases,
+        university portals, and curated learning materials.
+      </p>
+      <p>
+        Once you leave the platform, external websites operate under their own privacy policies and terms.
+        RAOH Researchers does not control or assume responsibility for third-party data practices.
+      </p>
+    </div>
+
+    <div class="legal-section">
+      <h2>5. Telegram Community</h2>
+      <p>
+        RAOH Researchers may provide access to a Telegram community for academic discussion and collaboration.
+      </p>
+      <p>
+        Any activity within Telegram is governed entirely by Telegram’s own Privacy Policy and Terms of Service.
+        We do not access, store, or manage user data from Telegram interactions.
+      </p>
+      <p>
+        <a href="https://t.me/+tojvW3IEzcQ2OTM8" target="_blank" style="color:#4f7cff; font-weight:600;">
+          Join Telegram Community
+        </a>
+      </p>
+    </div>
+
+    <div class="legal-section">
+      <h2>6. Scope of Use</h2>
+      <p>
+        RAOH Researchers is intended for academic and educational use by students and researchers.
+        The platform is not designed for commercial data collection or user profiling in any form.
+      </p>
+    </div>
+
+
+
+    <div class="legal-section">
+      <h2>7. Contact</h2>
+      <p>
+        For inquiries related to privacy or platform policies, contact us directly:
+        <br><br>
+        <a href="mailto:raohresearchers@gmail.com" target="_blank" style="color:#4f7cff; font-weight:600;">
+          Contact RAOH Researchers
+        </a>
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<!-- TERMS OF SERVICE -->
+<div class="legal-page" id="terms-page">
+  <div class="nav-inner" style="padding:16px 24px;">
+    <div class="nav-logo" onclick="hideLegal()">RAOH Researchers</div>
+  </div>
+
+  <div style="padding:0 24px; max-width:800px; margin:0 auto;">
+    
+    <div class="legal-back" onclick="hideLegal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="19" y1="12" x2="5" y2="12"/>
+        <polyline points="12 19 5 12 12 5"/>
+      </svg>
+      Back to Home
+    </div>
+
+    <h1>Terms of Service</h1>
+
+    <div class="legal-date">
+     
+      <p>
+        By accessing or using RAOH Researchers, you acknowledge and agree to these Terms of Service. 
+        This platform is built to remain open, accessible, and supportive for learners and researchers.
+      </p>
+    </div>
+
+    <div class="legal-section">
+      <h2>1. Agreement to Terms</h2>
+      <p>
+        By using this platform, you confirm that you understand and accept these Terms. 
+      </p>
+    </div>
+
+    <div class="legal-section">
+      <h2>2. Purpose of the Platform</h2>
+      <p>
+        RAOH Researchers is an open educational platform designed to support students and beginner researchers. 
+        It provides tools, resources, and access to materials intended for learning, collaboration, and academic growth.
+      </p>
+    </div>
+
+    <div class="legal-section">
+      <h2>3. User Freedom and Content Sharing</h2>
+      <p>
+        Users are free to upload, share, and distribute files, links, and resources through the platform, 
+        provided they do so responsibly and within applicable laws.
+      </p>
+      <p>
+        We support open knowledge exchange and do not impose unnecessary restrictions on educational content sharing.
+      </p>
+    </div>
+
+    <div class="legal-section">
+      <h2>4. Responsible Use</h2>
+      <p>
+        This platform is intended for constructive academic and educational use. 
+        Users are expected to respect the system, other users, and the integrity of shared content.
+      </p>
+    </div>
+ <div class="legal-section">
+
+      <h2>5. contact Us</h2>
+
+      <p>
+
+        For questions, support, or inquiries, reach out directly through:
+
+        <br><br>
+
+        <a href="mailto:raohresearchers@gmail.com" target="_blank" style="color:#4f7cff; font-weight:600;">
+
+          Contact RAOH Researchers
+
+        </a>
+
+      </p>
+
+    </div>
+   
+
+  </div>
+</div>
+<script>
+// ===== DATA =====
+const CARDS = [
+  {
+    id: "basics",
+    title: "Research Basics",
+    icon: "lightbulb",
+    description: "Start your research journey with foundational concepts.",
+    badge: "8 Files \u00b7 1 Course \u00b7 1 Website \u00b7 1 Note",
+    notes: ["It is recommended to review the \"Research Types Examples\" section and explore published studies in peer-reviewed journals for each research design to gain a better understanding of their structure, methodology, and reporting style."],
+    items: {
+      files: [
+        { label: "Types of Medical Studies", url: "pdfs/research-basics/Types_of_Medical_Studies.pdf" },
+        { label: "Cross-Sectional Study", url: "pdfs/research-basics/Cross_Sectional_Study.pdf" },
+        { label: "Research Ethics & IRB", url: "pdfs/research-basics/Research_Ethics_and_IRB.pdf" },
+        { label: "Validity, Sample & Bias", url: "pdfs/research-basics/Validity.pdf" },
+        { label: "Cross-Sectional Study Writing Structure", url: "pdfs/research-basics/Cross_Sectional_Study_Writing_Structure.pdf" },
+           { label: "Research Proposal", url: "pdfs/research-basics/researchproposal.pdf"}, 
+
+        { label: "Sample Size Calculation", url: "pdfs/research-basics/Sample_Size_Calculation.pdf" },           { label: "SRMA (Systematic Review and Meta-Analysis)", url: "pdfs/research-basics/SRMA_Systematic_Review_and_Meta_Analysis.pdf" },
+      ],
+     
+      websites: [
+        { label: "Research Ethics on Humans Board (IRB) of YU", url: "https://srgs.yu.edu.jo/index.php/en/scientific-research/ethics/forms-and-bylaws" }
+      ],
+      courses: [{
+    label: "Research Course — Dr. Laith Ashour",
+    url: "https://youtube.com/playlist?list=PLvXFzMHLYhzJP8C9CWfTFslJ6eUJm_FRI&si=qD821cLJW8FFv0Fm"
+  }]
+    }
+  },
+  {
+    id: "writing",
+    title: "Scientific Writing",
+    icon: "edit",
+    description: "Learn to communicate your findings with clarity and precision.",
+    badge: "6 Files \u00b7 1 Note",
+    notes: ["Many journals allow AI-assisted writing, provided its use is disclosed (e.g., in the Acknowledgements or Methods section). AI should only assist with writing; authors must verify all references, data, analyses, and results. Do not rely on AI for independent data analysis, interpretation, or citation generation, as errors may occur."],
+    items: {
+      files: [
+        { label: "Introduction", url: "pdfs/scientific-writing/Introduction.pdf" },
+        { label: "Methodology", url: "pdfs/scientific-writing/Methodology.pdf" },
+        { label: "Results", url: "pdfs/scientific-writing/Results.pdf" },
+        { label: "Discussion", url: "pdfs/scientific-writing/Discussion.pdf" },
+        { label: "Conclusions", url: "pdfs/scientific-writing/Conclusions.pdf" },
+        { label: "Title Page, Abstract & Notes", url: "pdfs/scientific-writing/Title_Page_Abstract_and_Notes.pdf" },
+      ],
+      websites: [],
+      courses: []
+    }
+  },
+  {
+    id: "systematic",
+    title: "Systematic Review and Meta Analysis",
+    icon: "search",
+    description: "Discover how to synthesize and analyze existing knowledge.",
+    badge: "2 Files \u00b7 1 Course",
+    notes: [],
+    items: {
+      files: [
+  {
+    label: "Systematic Review and Meta-Analysis (SRMA) — Detailed Guide",
+    url: "pdfs/srma/Systematic_Review_and_Meta_Analysis_Detailed_Guide.pdf"
+  },
+  {
+    label: "Rayyan (Systematic Review Screening Tool)",
+    url: "pdfs/srma/Rayyan_Systematic_Review_Screening_Tool.pdf"
+  }
+],
+
+websites: [],
+
+courses: [
+  {
+    label: "Systematic Review and Meta Analysis",
+    url: "https://youtube.com/playlist?list=PLpCgt81286MHuuS01hskYfLVNS4r8_I75"
+  }
+]
+    }
+  },
+  {
+    id: "publication",
+    title: "Publication Skills",
+    icon: "file",
+    description: "Navigate the path from manuscript to published paper.",
+    badge: "1 File \u00b7 1 Course \u00b7 2 Notes",
+    notes: ["Research findings can be shared through both journals and scientific conferences. The full manuscript is typically published in a journal, while conferences usually accept abstracts and poster presentations. Presenting at conferences helps researchers receive feedback, expand their professional network, and strengthen their academic CV. Be cautious of predatory journals and conferences that focus primarily on collecting fees without providing genuine academic value, visibility, or recognition.",   "Always review the journal’s Instructions for Authors before submission and include a well-written Cover Letter highlighting the importance, novelty, and relevance of your study to the journal."
+],
+    items: {
+      files: [
+  {
+    label: "Choosing the Right Journal",
+    url: "pdfs/publication/Choosing_the_Right_Journal.pdf"
+  }
+],
+      websites: [],
+      courses: [
+        { label: "From Zero to Publication", url: "https://youtube.com/playlist?list=PL4auWX0oy6ld3ilymzipRzq0x2CFVPGz3" }
+      ]
+    }
+  },
+  {
+    id: "research-types",
+    title: "Research Types Examples",
+    icon: "layers",
+    description: "Explore real-world examples across different types of research.",
+    badge: "3 Websites",
+    notes: [],
+    items: {
+      files: [],
+      courses: [],
+      websites: [
+  {
+    label: "Systematic Review and Meta-Analysis Example",
+    url: "https://www.jmir.org/2024/1/e48356"
+  },
+  {
+    label: "Cross-Sectional Study Example",
+    url: "https://article.accscience.com/journal/HPR/13/4/hpr_0180/hpr_0180.pdf"
+  },    {
+    label: "Narrative Review",
+    url: "https://www.tandfonline.com/doi/full/10.1080/21688370.2022.2090792"
+  }  
+
+]
+    }
+  },
+  {
+    id: "stats",
+    title: "Statistics",
+    icon: "chart",
+    description: "Master the numbers behind evidence-based research.",
+    badge: "2 Courses",
+    notes: [],
+    items: {
+      files: [],
+      websites: [],
+      courses: [
+        { label: "SPSS Course", url: "https://youtube.com/playlist?list=PLnruVGowQileyzRfxZbYQZzCasezy-d8s&si=oQDjwGZzjv6SFFWW" },
+        { label: "Jamovi Course", url: "https://youtube.com/playlist?list=PLiOBAYiI6xJjJIqUeyUssyBzqRb_UqKuA" },
+      ]
+    }
+  }
+];
+
+const ICONS = {
+  lightbulb: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>',
+  edit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
+  search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>',
+  file: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>',
+  layers: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>',
+  chart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="m19 9-5 5-4-4-3 3"/></svg>',
+  filetext: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>',
+  globe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>',
+  play: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5a2 2 0 0 1 3.09-1.68 12.8 12.8 0 0 1 10.8 7.8A12.8 12.8 0 0 1 8.09 19.68 2 2 0 0 1 5 18V5z"/><path d="m9 9 6 3-6 3V9z"/></svg>',
+  stickynote: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8Z"/><path d="M16 3v5h5"/></svg>',
+  chevronDown: '<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>',
+  chevronUp: '<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>',
+};
+
+// ===== RENDER CARDS =====
+function renderCards() {
+  const grid = document.getElementById('cards-grid');
+  grid.innerHTML = CARDS.map((card, idx) => `
+    <div class="card" onclick="openModal(${idx})">
+      <div class="card-icon">${ICONS[card.icon]}</div>
+      <h3>${card.title}</h3>
+      <p>${card.description}</p>
+      ${card.badge ? `<span class="card-badge">${card.badge}</span>` : ''}
+    </div>
+  `).join('');
+}
+
+// ===== MODAL =====
+let modalOpen = false;
+
+function openModal(idx) {
+  const card = CARDS[idx];
+  document.getElementById('modal-title').textContent = card.title;
+  document.getElementById('modal-icon').innerHTML = ICONS[card.icon];
+
+  let body = '';
+
+  if (card.items.files.length > 0) {
+    body += makeGroup('Files', 'filetext', card.items.files);
+  }
+  if (card.items.courses.length > 0) {
+    body += makeGroup('Courses', 'play', card.items.courses);
+  }
+  if (card.items.websites.length > 0) {
+    body += makeGroup('Websites', 'globe', card.items.websites);
+  }
+  if (card.items.files.length === 0 && card.items.courses.length === 0 && card.items.websites.length === 0 && (!card.notes || card.notes.length === 0)) {
+    body += '<p style="color:var(--muted); text-align:center; font-style:italic; padding:16px 0;">Content coming soon.</p>';
+  }
+  if (card.notes && card.notes.length > 0) {
+    body += makeNotes(card.notes);
+  }
+
+  document.getElementById('modal-body').innerHTML = body;
+  document.getElementById('modal-body').scrollTop = 0;
+  document.getElementById('modal-overlay').classList.add('active');
+  document.getElementById('modal').classList.add('active');
+  modalOpen = true;
+  const scrollY = window.scrollY;
+  document.body.classList.add('lock');
+  document.body.dataset.scrollY = String(scrollY);
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('active');
+  document.getElementById('modal').classList.remove('active');
+  modalOpen = false;
+  const scrollY = parseFloat(document.body.dataset.scrollY || '0');
+  document.body.classList.remove('lock');
+  window.scrollTo(0, scrollY);
+}
+
+function makeGroup(title, iconKey, items) {
+  const id = 'g-' + Math.random().toString(36).slice(2);
+  return `
+    <div class="group-box">
+      <div class="group-header" onclick="toggleGroup('${id}', this)">
+        <div class="group-header-title">${ICONS[iconKey]} ${title}</div>
+        ${ICONS.chevronUp}
+      </div>
+      <div class="group-items" id="${id}">
+        ${items.map(item => `<a href="${item.url}" target="_blank" rel="noopener noreferrer">${item.label}</a>`).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function makeNotes(notes) {
+  const nid = 'n-' + Math.random().toString(36).slice(2);
+  let noteItems = '';
+  notes.forEach((note, i) => {
+    const eid = nid + '-' + i;
+    noteItems += `
+      <div class="note-item">
+        <button class="note-toggle" onclick="toggleNote('${eid}', this)">
+          <span>Note ${i+1}</span>
+          ${ICONS.chevronDown}
+        </button>
+        <div class="note-body" id="${eid}" style="display:none">${note}</div>
+      </div>
+    `;
+  });
+  return `
+    <div class="notes-box">
+      <div class="notes-header" onclick="toggleGroup('${nid}', this)">
+        <div class="notes-header-title">${ICONS.stickynote} Notes</div>
+        ${ICONS.chevronDown}
+      </div>
+      <div class="notes-list" id="${nid}" style="display:none">
+        ${noteItems}
+      </div>
+    </div>
+  `;
+}
+
+function toggleGroup(id, header) {
+  const el = document.getElementById(id);
+  const isOpen = el.style.display !== 'none';
+  el.style.display = isOpen ? 'none' : 'block';
+  const svg = header.querySelector('.chevron');
+  if (svg) svg.outerHTML = isOpen ? ICONS.chevronDown : ICONS.chevronUp;
+}
+
+function toggleNote(id, btn) {
+  const el = document.getElementById(id);
+  const isOpen = el.style.display !== 'none';
+  el.style.display = isOpen ? 'none' : 'block';
+  const svg = btn.querySelector('svg');
+  if (svg) svg.outerHTML = isOpen ? ICONS.chevronDown : ICONS.chevronUp;
+}
+
+// ===== NAVIGATION =====
+function goTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'auto' });
+}
+
+function toggleMobile() {
+  const menu = document.getElementById('mobile-menu');
+  const menuIcon = document.getElementById('menu-icon');
+  const closeIcon = document.getElementById('close-icon');
+  if (menu.classList.contains('hidden')) {
+    menu.classList.remove('hidden');
+    menuIcon.style.display = 'none';
+    closeIcon.style.display = 'block';
+  } else {
+    menu.classList.add('hidden');
+    menuIcon.style.display = 'block';
+    closeIcon.style.display = 'none';
+  }
+}
+
+// ===== LEGAL PAGES =====
+function showLegal(page) {
+  document.body.classList.add('legal-active');
+  document.getElementById('privacy-page').classList.toggle('active', page === 'privacy');
+  document.getElementById('terms-page').classList.toggle('active', page === 'terms');
+  window.scrollTo(0, 0);
+}
+
+function hideLegal() {
+  document.body.classList.remove('legal-active');
+  document.getElementById('privacy-page').classList.remove('active');
+  document.getElementById('terms-page').classList.remove('active');
+  window.scrollTo(0, 0);
+}
+
+// ===== INIT =====
+renderCards();
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && modalOpen) closeModal();
+});
+</script>
+
+</body>
+
+</html>
